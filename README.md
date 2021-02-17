@@ -16,20 +16,34 @@ Try to send query in http://localhost:8000/graphql
 
 ```graphql
 query {
-  allIngredients {
-    id
-    notes
-    category {
-      id
-      name
+  allIngredients(first: 3) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
     }
   }
-  categoryByName(name: "Meat") {
+  allCategories(
+    ingredients: ["SW5ncmVkaWVudE5vZGU6MQ==", "SW5ncmVkaWVudE5vZGU6Mw=="]
+  ) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+  ingredient(id: "SW5ncmVkaWVudE5vZGU6MQ==") {
     id
     name
-    ingredients {
-      name
-    }
   }
 }
 ```
